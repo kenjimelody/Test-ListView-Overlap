@@ -8,7 +8,6 @@
 
     <ImageView
         android:id="@+id/row_img"
-        android:src="@mipmap/cat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />

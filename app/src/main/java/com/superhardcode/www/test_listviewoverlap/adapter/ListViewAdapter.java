@@ -11,27 +11,37 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.superhardcode.www.test_listviewoverlap.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by Thanisak Piyasaksiri on 7/4/16 AD.
  */
 public class ListViewAdapter  {
 
+    final int radius = 25;
+    final int margin = 5;
+
     private Context context;
     private ListView listViewObj;
     private List<HashMap<String, Object>> dataListObj;
 
     private ListAdapter adapter;
+    private Transformation transformation;
 
     public ListViewAdapter(Context context, ListView listViewObj) {
 
         this.context = context;
         this.listViewObj = listViewObj;
         this.dataListObj = new ArrayList<HashMap<String, Object>>();
+        this.transformation = new RoundedCornersTransformation(radius, margin);
 
         this.adapter = new ListAdapter(this.context, R.layout.row_listview, this.dataListObj);
         this.listViewObj.setAdapter(this.adapter);
@@ -103,6 +113,8 @@ public class ListViewAdapter  {
 
             final HashMap<String, Object> o = (HashMap<String, Object>) items.get(positions);
             holder.row_text.setText(String.valueOf(o.get("title")));
+
+            Picasso.with(context).load(R.mipmap.cat).transform(transformation).into(holder.row_img);
 
             if((position%2) == 0) {
                 holder.row_frame.setBackgroundResource(R.drawable.border_cyan);
